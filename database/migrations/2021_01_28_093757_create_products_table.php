@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->foreignId('options_id')
-                ->constrained('options','id')
+                ->constrained('options', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->timestamps();

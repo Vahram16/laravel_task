@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::post('/test',[\App\Http\Controllers\ProductController::class,'test']);
+Route::get('/test',[\App\Http\Controllers\ProductController::class,'test']);
 Route::get('/test2',function (){dd(222);});

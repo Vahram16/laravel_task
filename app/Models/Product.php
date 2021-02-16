@@ -17,18 +17,18 @@ class Product extends Model
 
     public function option()
     {
-        return $this->hasOne(Option::class, 'id', 'options_id');
+        return $this->belongsTo(Option::class, 'options_id', 'id');
 
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::deleting(function ($product) {
-
-            $product->option->delete();
-        });
-    }
+//    protected static function boot()
+//    {
+//        parent::boot();
+//        static::deleting(function ($product) {
+//
+//            $product->option->delete();
+//        });
+//    }
 
     public function getColumnsName()
     {

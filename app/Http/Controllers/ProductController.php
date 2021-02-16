@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\A;
+use App\C;
+use App\Events\VerificationEvent;
 use App\Http\Requests\BuyProductRequest;
 use App\Http\Requests\CheckIdParametr;
 use App\Http\Requests\EditProductRequest;
@@ -10,6 +13,7 @@ use App\Http\Resources\ProductCollection;
 use App\Http\Resources\ProductResource;
 use App\Models\Option;
 use App\Models\Product;
+use App\Models\User;
 use App\Sevices\ProductService;
 use Illuminate\Http\Request;
 
@@ -37,10 +41,39 @@ class ProductController extends Controller
 
     public function test(Option $op, Product $product, Request $request)
     {
-        $pr = Product::where('id', 9)->with('option')->first();
-        dd($pr->option()->update(['m' => 99]));
 
 
+
+//        $user = User::all();
+//       $users =  User::where('name','Vahr')->get();
+//        $users = User::sas()->get();
+//        dd($users);
+
+
+
+//        $user = User::find(4);
+//
+//        VerificationEvent::dispatch($user);
+
+
+
+
+
+
+
+
+
+//
+//        if (!$user->hasVerifiedEmail()) {
+//            $user->markEmailAsVerified();
+//        }
+//        dd($user);
+
+
+//        $path = 'vahramna?me=1';
+//        $r = strpos($path, '?');
+//      $t=  substr($path, 0, $r);
+//dd($t);
     }
 
     public function create(ProductRequest $request)
@@ -70,8 +103,8 @@ class ProductController extends Controller
         if (count($validated) < 2) {
             return $this->respondWithNoSuccess('No Content', 400);
         }
-        $product = $this->productService->edit($validated);
-        return  $this->respondWithNoContent('Product updated successfully');
+        $this->productService->edit($validated);
+        return $this->respondWithNoContent('Product updated successfully');
 
 
     }
@@ -80,29 +113,24 @@ class ProductController extends Controller
     public function destroy(CheckIdParametr $request)
     {
         $validated = $request->validated();
-       $this->productService->destroy($validated['id']);
-        return  $this->respondWithNoContent('Product deleted successfully');
+        $this->productService->destroy($validated['id']);
+        return $this->respondWithNoContent('Product deleted successfully');
 
     }
-    public function buy(BuyProductRequest $request){
 
-
-//        $arr = ['s'=>6,'l'=>1,'op'=>12,'sassaad'=>90,'m'=>1];
-// $y =     array_intersect_key($arr,array_flip());
-//
-//
-//        dd($y);
+    public function buy(BuyProductRequest $request)
+    {
 
         $validated = $request->validated();
-
-      $product =   $this->productService->buy($validated);
-        if ($product['success'] == true ){
+        $product = $this->productService->buy($validated);
+        if ($product['success'] == true) {
             return $this->respondWithNoContent('Success');
         }
 
-        return $this->respondWithCustomData($product['errors'],400,'there are not enough products');
-
+        return $this->respondWithCustomData($product['errors'], 400, 'there are not enough products');
 
 
     }
+
+
 }

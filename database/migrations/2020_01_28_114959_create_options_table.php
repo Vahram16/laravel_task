@@ -18,6 +18,7 @@ class CreateOptionsTable extends Migration
             $table->integer('s')->default(0);
             $table->integer('m')->default(0);
             $table->integer('l')->default(0);
+            $table->foreignId('product_id');
             $table->timestamps();
         });
     }

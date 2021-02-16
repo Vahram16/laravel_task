@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -20,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_verified',
+        'verification_code',
+        'api_token'
     ];
 
     /**
@@ -40,4 +44,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+//    public function getNameAttribute($name){
+//
+//
+//        return $name . "VASP" ;
+//    }
+//    protected static function booted()
+//    {
+//        static::addGlobalScope('ancient', function (Builder $builder) {
+//            $builder->where('name','sas');
+//        });
+//    }
+
+    public function scopeSas($query)
+    {
+        return $query->where('name', 'sas');
+    }
+
 }
