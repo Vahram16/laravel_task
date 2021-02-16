@@ -15,7 +15,7 @@ class B extends A
     public function fooB()
     {
 
-        dd("Foo BBBBB");
+        dd("Foo VAHR");
     }
 
 }
